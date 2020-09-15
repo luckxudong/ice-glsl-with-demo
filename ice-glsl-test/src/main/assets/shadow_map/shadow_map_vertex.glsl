@@ -1,4 +1,4 @@
-#version 120
+
 
 uniform mat4 u_MMatrix;
 uniform mat4 u_MVMatrix;

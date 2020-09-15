@@ -1,4 +1,4 @@
-#version 120
+
 
 uniform mat4 u_LightMVPMatrix;
 uniform mat4 u_ModelMatrix;

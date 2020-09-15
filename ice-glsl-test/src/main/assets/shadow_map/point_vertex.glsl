@@ -1,4 +1,4 @@
-#version 120
+
 
 uniform mat4 u_MVPMatrix;
 attribute vec3 a_Position;

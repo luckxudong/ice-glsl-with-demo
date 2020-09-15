@@ -1,4 +1,4 @@
-#version 120
+
 
 attribute vec4 aPosition;
 uniform mat4 aModelViewProjectMatrix;

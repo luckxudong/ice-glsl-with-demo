@@ -313,7 +313,7 @@ public class AnyAspectCameraPreview extends GLSurfaceView implements CameraProxy
     private PointF cameraPreviewSize;
     private float[] textureCrop;
 
-    private static final String VERTEX_SRC = "#version 120\n" +
+    private static final String VERTEX_SRC =
             "uniform mat4 u_MVPMatrix;" +
             "uniform vec4 u_TextureCrop;" +
             "attribute vec4 a_Position;" +

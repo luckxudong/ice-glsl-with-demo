@@ -1,4 +1,4 @@
-#version 120
+
 
 uniform mat4 u_MVPMatrix;
 uniform vec4 u_TextureCrop;
