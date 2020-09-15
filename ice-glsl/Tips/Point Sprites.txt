@@ -1,0 +1,32 @@
+The gl_PointSize value output by a vertex shader will be
+clamped to the aliased point size range supported by the OpenGL ES 2.0
+implementation. This range can be queried using the following command.
+
+GLfloat pointSizeRange[2];
+glGetFloatv(GL_ALIASED_POINT_SIZE_RANGE, pointSizeRange);
+
+By default, OpenGL ES 2.0 describes the window origin (0, 0) to be the (left,
+bottom) region. However, for point sprites, the point coordinate origin is
+(left, top).
+
+gl_PointCoord is a built-in variable available only inside a fragment shader
+when the primitive being rendered is a point sprite. gl_PointCoord is
+declared as a vec2 variable using the mediump precision qualifier. The values
+assigned to gl_PointCoord go from 0.0 to 1.0 as we move from left to right
+or from top to bottom, as illustrated by Figure 7-3.
+
+(0, 1)      (1, 1)
+
+      |      |
+      |      |
+
+(0, 0)      (1, 0)
+
+The following fragment shader code illustrates how gl_PointCoord can be
+used as a texture coordinate to draw a textured point sprite.
+uniform sampler2D s_texSprite;
+void
+main(void)
+{
+gl_FragColor = texture2D(s_texSprite, gl_PointCoord);
+}

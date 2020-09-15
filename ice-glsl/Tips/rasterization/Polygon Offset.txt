@@ -1,0 +1,29 @@
+Polygon Offset
+
+Consider the case where we are drawing two polygons that overlap each
+other. You will most likely notice artifacts as shown in Figure 7-11. These
+artifacts, called Z-fighting artifacts, occur because of limited precision of
+triangle rasterization, which can impact the precision of the depth values
+generated per fragment, resulting in artifacts as shown in Figure 7-11. The
+limited precision of parameters used by triangle rasterization and generated
+depth values per fragment will get better and better but will never be
+completely resolved.
+
+To avoid the artifacts shown in Figure 7-11, we need to add a delta to the
+computed depth value before the depth test is performed and before the
+depth value is written to the depth buffer. If the depth test passes, the original
+depth value and not the original depth value + delta will be stored in
+the depth buffer.
+
+void glPolygonOffset(GLfloat factor, GLfloat units)
+
+The depth offset is computed as:
+depth offset = m * factor + r * units
+m is maximum depth slope of the triangle and is calculated as:
+m can also be calculated as max{|∂z/∂x|, |∂z/∂y|}.
+The slope terms ∂z/∂x and ∂z/∂y are calculated by the OpenGL ES implementation
+during the triangle rasterization stage.
+r is an implementation-defined constant and represents the smallest value
+that can produce a guaranteed difference in depth value.
+Polygon offset can be enabled or disabled using glEnable(GL_POLYGON_
+OFFSET_FILL) and glDisable(GL_POLYGON_OFFSET_FILL).

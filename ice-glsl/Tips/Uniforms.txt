@@ -1,0 +1,16 @@
+Uniform variables are variables that store read-only
+values that are passed in by the application through the OpenGL ES 2.0 API
+to the shader. Uniforms are useful for storing all kinds of data that shaders
+need, such as transformation matrices, light parameters, or colors. Basically,
+any parameter to a shader that is constant across either all vertices or
+fragments (but that is not known at compile time) should be passed in as
+a uniform.
+
+
+Note also that the namespace for uniform variables is shared across
+both a vertex and a fragment shader. That is, if a vertex and fragment shader
+are linked together into a program object, they share the same set of uniform
+variables. Therefore, if a uniform variable is declared in the vertex
+shader and also in the fragment shader, its declaration must match. When
+the application loads the uniform variable through the API, its value will be
+available in both the vertex and fragment shaders.

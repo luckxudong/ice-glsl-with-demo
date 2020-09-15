@@ -1,0 +1,12 @@
+Non-Power-of-Two Textures
+
+In OpenGL ES 2.0, textures can have non-power-of-two (npot) dimensions.
+In other words, the width and height do not need to be a power of two.
+However, OpenGL ES 2.0 does have a restriction on the wrap modes that
+can be used if the texture dimensions are not power of two. That is, for npot
+textures, the wrap mode can only be GL_CLAMP_TO_EDGE and the minification
+filter can only be GL_NEAREST or GL_LINEAR (in other words, not mipmapped).
+The extension GL_OES_texture_npot relaxes these restrictions
+and allows wrap modes of GL_REPEAT and GL_MIRRORED_REPEAT and also
+allows npot textures to be mipmapped with the full set of minification
+filters.

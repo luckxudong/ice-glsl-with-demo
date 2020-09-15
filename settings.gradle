@@ -1,0 +1,2 @@
+include ':ice-glsl'
+include ':ice-glsl-test'

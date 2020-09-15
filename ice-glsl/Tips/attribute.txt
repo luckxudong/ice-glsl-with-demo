@@ -1,0 +1,42 @@
+1.数据类型
+
+The attribute qualifier can be used only with the data types
+
+float, vec2,vec3, vec4, mat2, mat3, and mat4.
+
+Attribute variables cannot be declared as arrays or structures.
+
+The following example declarations of vertex attributes
+are invalid and should result in a compilation error.
+
+attribute foo_t a_A; // foo_t is a structure
+attribute vec4 a_B[10];
+
+2.
+An OpenGL ES 2.0 implementation supports GL_MAX_VERTEX_ATTRIBS
+vec4 vertex attributes. A vertex attribute that is declared as a float or vec2
+or vec3 will count as one vec4 attribute. Vertex attributes declared as mat2,
+mat3, or mat4 will count as two, three, or four vec4 attributes, respectively.
+Unlike uniform and varying variables, which get packed automatically by
+the compiler, attributes do not get packed. Each component is stored internally
+by the implementation as a 32-bit single precision floating-point
+value. Please consider carefully when declaring vertex attributes with sizes
+less than vec4, as the maximum number of vertex attributes available is a
+limited resource. It might be better to pack them together into one vec4
+attribute instead of declaring them as individual vertex attributes in the vertex
+shader.
+Variables declared as vertex attributes in a vertex shader are read-only variables
+and cannot be modified. The following code should cause a compilation
+error.
+
+attribute vec4 a_pos;
+uniform vec4 u_v;
+void main()
+{
+a_pos = u_v; <--- cannot assign to a_pos as it is read-only
+}
+
+An attribute can be declared inside a vertex shader but if it is not used then
+it is not considered active and does not count against the limit. If the number
+of attributes used in a vertex shader is greater than
+GL_MAX_VERTEX_ATTRIBS, the vertex shader will fail to link.

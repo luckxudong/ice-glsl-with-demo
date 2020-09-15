@@ -1,0 +1,71 @@
+Flow Control
+
+OpenGL ES 2.0 requires implementations to support for loops in a vertex
+shader without requiring that they must be unrolled. For example, you
+could have a for loop with a loop index that goes from 0 to 1023. This will
+typically not be unrolled by the shader compiler, as the code size of the
+unrolled shader will most likely be too big for most ES 2.0 implementations.
+
+The following restrictions apply to for loops used in a vertex shader:
+• Only one loop index can be used in a for loop.
+• The loop index must be initialized to a constant integral expression.
+• The condition expression declared in the for loop must be one of the
+following:
+
+                loop_indx < constant_expression
+                loop_indx <= constant_expression
+                loop_indx > constant_expression
+                loop_indx >= constant_expression
+                loop_indx != constant_expression
+                loop_indx == constant_expression
+
+• The loop index can be modified in the for loop statement using one of
+the following expressions only:
+                 loop_index--
+                 loop_index++
+                 loop_index -= constant_expression
+                 loop_index += constant_expression
+
+• The loop index can be passed as a read-only argument to functions
+inside the for loop (i.e., the loop index can be used with arguments
+declared using the in parameter qualifier).
+
+Examples of valid for loop constructs are shown here.
+
+const int numLights = 4;
+int i, j;
+for (i=0; i<numLights; i++)
+{
+…
+}
+for (j=4; j>0; j--)
+{
+…
+foo(j); // argument to function foo that takes j
+// is declared with the in qualifier.
+}
+
+
+Examples of invalid for loop constructs are shown here.
+
+uniform int numLights;
+int i;
+for (i=0; i<numLights; i++) // conditional expression is not constant
+{
+…
+}
+
+for (i=0; i<8; i++)
+{
+i = foo(); // return value of foo() cannot be assigned to loop index i
+}
+
+for (j=4; j>0;)
+{
+…
+j--; // loop index j cannot be modified inside for loop
+}
+
+while and do-while loops, though specified by the OpenGL ES 2.0 shading
+language specification, are not a requirement and therefore might not be
+supported by all OpenGL ES 2.0 implementations.

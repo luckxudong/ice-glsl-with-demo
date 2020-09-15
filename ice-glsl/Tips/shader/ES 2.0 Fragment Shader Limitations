@@ -1,0 +1,12 @@
+ES 2.0 Fragment Shader Limitations
+
+In Chapter 8, we provided a detailed review of the limitations on vertex
+shaders and how to write portable shaders. If you need a refresher, review
+that material, as almost all of the same limitations apply to fragment
+shaders. The only difference in limitations for fragment shaders is that uniform
+arrays can only be indexed with constant integral expressions. In the
+vertex shader, it is required that all implementations support indexing of
+uniform arrays using computed expressions. However, this is not the case
+for the fragment shader. Indexing of uniforms using anything other than
+constant integral expressions is not guaranteed to be supported by an ES 2.0
+implementation.

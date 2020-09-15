@@ -1,0 +1,36 @@
+Precision Qualifiers
+
+We do a brief review of precision qualifiers. Precisions qualifiers are covered
+in Chapter 5. Precision qualifiers can be used to specify the precision of any
+float- or integer-based variable. The keywords for specifying the precision
+are lowp, mediump, and highp. Some examples of declarations with precision
+qualifiers are shown here.
+
+highp vec4 position;
+varying lowp vec4 color;
+mediump float specularExp;
+
+In addition to precision qualifiers, there is also the notion of default precision.
+That is, if a variable is declared without having a precision qualifier, it
+will have the default precision for that type. The default precision qualifier is
+specified at the top of a vertex or fragment shader using the following syntax:
+
+precision highp float;
+precision mediump int;
+
+The precision specified for float will be used as the default precision for all
+variables based on a floating-point value. Likewise, the precision specified
+for int will be used as the default precision for all integer-based variables. In
+the vertex shader, if no default precision is specified, the default precision
+for both int and float is highp.
+
+For operations typically performed in a vertex shader, the precision qualifier
+that will most likely be needed is the highp precision qualifier. Operations
+that transform a position with a matrix, transform normals and texture coordinates,
+or generate texture coordinates will need to be done with highp precision.
+Color computations and lighting equations can most likely be done
+with mediump precision. Again, this will depend on the kind of color computations
+being performed and the range and precision required for operations
+that are being performed. We believe that highp will most likely be the
+default precision used for most operations in a vertex shader and therefore
+use highp as the default precision qualifier in the examples that follow.

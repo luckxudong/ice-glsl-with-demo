@@ -1,0 +1,8 @@
+Varying variables are used to store the output of the
+vertex shader and also the input of a fragment shader. Basically, each vertex
+shader will output the data it needs to pass the fragment shader into one or
+more varying variables.
+
+These variables will then also be declared in the fragment shader (with matching types)
+
+and will be linearly interpolated across the primitive during rasterization .
