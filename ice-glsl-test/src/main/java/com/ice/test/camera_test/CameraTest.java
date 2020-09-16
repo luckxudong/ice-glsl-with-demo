@@ -8,22 +8,32 @@ import android.hardware.Camera;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+
 import com.ice.engine.AbstractRenderer;
 import com.ice.engine.TestCase;
-import com.ice.graphics.geometry.*;
+import com.ice.graphics.geometry.CoordinateSystem;
+import com.ice.graphics.geometry.Geometry;
+import com.ice.graphics.geometry.GeometryDataFactory;
+import com.ice.graphics.geometry.IBOGeometry;
+import com.ice.graphics.geometry.IndexedGeometryData;
 import com.ice.graphics.shader.FragmentShader;
 import com.ice.graphics.shader.Program;
 import com.ice.graphics.shader.ShaderBinder;
 import com.ice.graphics.shader.VertexShader;
 import com.ice.graphics.texture.Texture;
 
-import javax.microedition.khronos.egl.EGLConfig;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.microedition.khronos.egl.EGLConfig;
+
 import static android.opengl.GLES11Ext.GL_TEXTURE_EXTERNAL_OES;
-import static android.opengl.GLES20.*;
+import static android.opengl.GLES20.GL_CULL_FACE;
+import static android.opengl.GLES20.glClearColor;
+import static android.opengl.GLES20.glEnable;
+import static android.opengl.GLES20.glViewport;
 import static com.ice.engine.Res.assetSting;
 import static com.ice.graphics.geometry.CoordinateSystem.M_V_P_MATRIX;
 
@@ -39,7 +49,7 @@ public class CameraTest extends TestCase {
     private SurfaceTexture surfaceTexture;
     private CameraProxy camera;
 
-    private PointF displaySize = new PointF(2.0f,1.0f);
+    private PointF displaySize = new PointF(2.0f, 1.0f);
     private Rect cameraPreviewBounds = new Rect(0, 0, 1024, 768);
 
     private float[] textureCrop;
@@ -105,6 +115,9 @@ public class CameraTest extends TestCase {
 
         try {
             Camera.Parameters parameters = opened.getParameters();
+            List<Camera.Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
+            cameraPreviewBounds.set(0, 0, supportedPreviewSizes.get(0).width, supportedPreviewSizes.get(0).height);
+
             parameters.setPreviewSize(cameraPreviewBounds.width(), cameraPreviewBounds.height());
             opened.setParameters(parameters);
 
